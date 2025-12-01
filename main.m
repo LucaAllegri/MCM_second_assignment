@@ -11,17 +11,16 @@ disp(iTj_0);
 jointType = [0 0 0 0 0 1 0]; % specify two possible link type: Rotational, Prismatic.
 geometricModel = geometricModel(iTj_0,jointType);
 
-%% Q1.2
-qi = [pi/4, -pi/4, 0, -pi/4, 0, 0.15, pi/4];
-geometricModel.updateDirectGeometry(qi)
-disp('iTj')
-disp(geometricModel.iTj);
-
 %% Q1.3
 
-bTk = geometricModel.getTransformWrtBase(6);
+bTk = geometricModel.getTransformWrtBase(length(jointType));
 disp('bTk')
 disp(bTk);
+
+bTk = geometricModel.getTransforFramekWrtFramej(2,6);
+disp('bTk')
+disp(bTk);
+
 
 %% Q1.4 Simulation
 % Given the following configurations compute the Direct Geometry for the manipulator

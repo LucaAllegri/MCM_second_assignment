@@ -29,6 +29,7 @@ classdef geometricModel < handle
                 error('Not enough input arguments (iTj_0) (jointType)')
             end
         end
+
         function updateDirectGeometry(self, q)
 
             for i=1:self.jointNumber
@@ -62,11 +63,45 @@ classdef geometricModel < handle
 
             bTk = self.iTj(:,:,1);
 
+            %SECONDO ME bTk matrice identità e il for va da 1 a k
+
             if k==1
                 return ;
             end
+
             for i=2:k
                 bTk = bTk  * self.iTj(:,:,i);
+            end
+           
+            %% GetTransformatioWrtBase function
+            % Inputs :
+            % k: the idx for which computing the transformation matrix
+            % outputs
+            % bTk : transformation matrix from the manipulator base to the k-th joint in
+            % the configuration identified by iTj.
+
+            %TO DO
+        end
+
+        function [bTk] = getTransforFramekWrtFramej(self,k,j)
+
+            bTk = eye(4);
+
+            if k==j
+                return;
+            end
+
+            if k>j
+                for i=1:k
+                    bTk = bTk  * self.iTj(:,:,i);
+                end
+            end
+
+            
+            if k<j
+                for i=k:j
+                    bTk = bTk  * self.iTj(:,:,i);
+                end
             end
            
             %% GetTransformatioWrtBase function
