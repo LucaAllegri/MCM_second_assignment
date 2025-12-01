@@ -32,21 +32,17 @@ classdef geometricModel < handle
         function updateDirectGeometry(self, q)
 
             for i=1:self.jointNumber
-                if self.jointType(i) == 0
-                    theta = q(i); 
-                    self.iTj(1,1,i) = self.iTj(1,1,i) * cos(theta);
-                    self.iTj(1,2,i) = self.iTj(1,2,i) * -sin(theta);
-                    self.iTj(2,1,i) = self.iTj(2,1,i) * sin(theta);
-                    self.iTj(2,2,i) = self.iTj(2,2,i) * cos(theta);
+                if self.jointType == 0
+
+                end
+                if slef.jointType ==1
+                
                 end
 
-                if self.jointType(i) == 1
-                    trasl = q(i);
-                    self.iTj(3,4,i) = self.iTj(3,4,i) + trasl;
-                end
                     
             end
-                          
+                
+                            
             %%% GetDirectGeometryFunction
             % This method update the matrices iTj.
             % Inputs:
@@ -59,16 +55,6 @@ classdef geometricModel < handle
             %TO DO
         end
         function [bTk] = getTransformWrtBase(self,k)
-
-            bTk = self.iTj(:,:,1);
-
-            if k==1
-                return ;
-            end
-            for i=2:k
-                bTk = bTk  * self.iTj(:,:,i);
-            end
-           
             %% GetTransformatioWrtBase function
             % Inputs :
             % k: the idx for which computing the transformation matrix

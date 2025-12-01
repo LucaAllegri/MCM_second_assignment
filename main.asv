@@ -19,9 +19,8 @@ disp(geometricModel.iTj);
 
 %% Q1.3
 
-bTk = geometricModel.getTransformWrtBase(6);
-disp('bTk')
-disp(bTk);
+geometricModel.getTransformWrtBase(6);
+
 
 %% Q1.4 Simulation
 % Given the following configurations compute the Direct Geometry for the manipulator
