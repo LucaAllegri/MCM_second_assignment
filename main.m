@@ -30,6 +30,7 @@ disp('first')
 disp(first);
 
 
+
 %% Q1.4 Simulation
 % Given the following configurations compute the Direct Geometry for the manipulator
 
@@ -98,9 +99,24 @@ pm.plotFinalConfig(bTi)
 
 %% Q1.5
 km = kinematicModel(geometricModel);
-kinematicModel.getJacobianOfLinkWrtBase(qi)
-
+J6 = km.getJacobianOfLinkWrtBase(6);
+disp("J6");
+disp(J6);
 
 %% Q1.6
+J = km.updateJacobian();
+disp("J");
+disp(J);
 
 %% Q1.7
+gm = geometricModel(iTj_0,jointType);
+
+q_r= [0.7, -0.1, 1, -1, 0, 0.03, 1.3];
+q = [rad2deg(0.7), rad2deg(-0.1), rad2deg(1), rad2deg(-1), rad2deg(0), 0.03, rad2deg(1.3)];
+geometricModel.updateDirectGeometry(q);
+km = kinematicModel(gm);
+J = km.updateJacobian();
+dq = [0.9, 0.1, -0.2, 0.3, -0.8, 0.5, 0];
+
+v_n0 = J(1:3, :)*dq;
+w_n0 = J(4:6, :)*dq;

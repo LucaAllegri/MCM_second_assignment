@@ -26,12 +26,36 @@ classdef kinematicModel < handle
 
             % The function returns:
             % bJi
+
             
-            T_0_i = gm.getTransformWrtBase(i);
+            T_0_i = self.gm.getTransformWrtBase(i);
+            T_0_n = self.gm.getTransformWrtBase(length(self.gm.jointType));
             bJi = zeros(6,1);
             % Compute the Jacobian for joint i
-            bJi = T_0_i(1:3, 1:3) * [0; 0; 1]; 
+            ki = T_0_i(1:3,3);
+            r_ni = T_0_n(1:3,4) - T_0_i(1:3,4);
+            %Angular part
+            if(self.gm.jointType(i) == 0)
+                
+                w = ki;
+            else
+                % For prismatic joint
+                w = [0,0,0]'; 
+            end
             
+            %Linear part
+            if(self.gm.jointType(i) == 0)
+                
+                v = cross(ki, r_ni);
+            else
+                % For prismatic joint
+                v = ki;
+            end
+         
+            bJi(1:3) = w;
+            bJi(4:6) = v;
+
+
         end
 
         function updateJacobian(self)
@@ -39,8 +63,10 @@ classdef kinematicModel < handle
         % The function update:
         % - J: end-effector jacobian matrix
 
-            % TO DO
-
+            for i = 0:self.gm.jointNumber
+                Ji = getJacobianOfLinkWrtBase(i);
+                self.J(:,i) = Ji;
+            end
             
         end
     end
