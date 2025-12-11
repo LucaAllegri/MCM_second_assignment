@@ -13,13 +13,20 @@ geometricModel = geometricModel(iTj_0,jointType);
 
 %% Q1.3
 
+%da b a e 
 bTk = geometricModel.getTransformWrtBase(length(jointType));
 disp('bTk')
 disp(bTk);
 
-bTk = geometricModel.getTransforFramekWrtFramej(2,6);
-disp('bTk')
-disp(bTk);
+T_0_2 = geometricModel.getTransformWrtBase(2);
+% Compute the inverse of the transformation matrix T_0_2
+T_0_6 = geometricModel.getTransformWrtBase(6);
+T_0_2_inv = inv(T_0_2);
+T_0_6_inv = inv(T_0_6);
+
+first = T_0_6_inv  * T_0_2 ;
+% second = inv(T_0_2_inv * T_0_6 ); secondo metodo 
+
 
 
 %% Q1.4 Simulation
@@ -42,6 +49,9 @@ show_simulation = true;
 
 % Set initial and final joint positions
 qf = [5*pi/12, -pi/3, 0, -pi/4, 0, 0.18, pi/5];
+
+%Prove
+%qf = [pi, 0, 0, 0, 0, 0,0];
 
 %%%%%%%%%%%%% SIMULATION LOOP %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Simulation variables
@@ -69,14 +79,14 @@ for i = 1:samples
     brij= zeros(3,geometricModel.jointNumber);
     q = qSteps(i,1:geometricModel.jointNumber)';
     % Updating transformation matrices for the new configuration 
-    geometricModel.updateDirectGeometry(q)
+    geometricModel.updateDirectGeometry(q)s
     % Get the transformation matrix from base to the tool
     bTe = geometricModel.getTransformWrtBase(length(jointType)); 
 
     %% ... Plot the motion of the robot 
     if (rem(i,0.1) == 0) % only every 0.1 sec
         for j=1:geometricModel.jointNumber
-            bTi(:,:,j) = geometricModel.getTransformWrtBase(j); 
+            bTi(:,:,j) = geometricModel.getTransformWrtBase(j);
         end
         pm.plotIter(bTi)
     end
