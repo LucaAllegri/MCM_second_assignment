@@ -37,7 +37,7 @@ classdef geometricModel < handle
                 if self.jointType(i) == 0
                     theta = q(i); 
                     R = [cos(theta), -sin(theta), 0;
-                         sin(theta),  cos(theta), 0;
+                         sen(theta),  cos(theta), 0;
                                 0,           0,   1];
                     % self.iTj(1,1,i) = self.iTj(1,1,i) * cos(theta);
                     % self.iTj(1,2,i) = self.iTj(1,2,i) * -sin(theta);
@@ -47,8 +47,8 @@ classdef geometricModel < handle
                 end
 
                 if self.jointType(i) == 1
-                    transl = [0;0; q(i)];
-                    self.iTj(:,:,i) = Ti_0 * [eye(3,3), transl; 0, 0, 0, 1];
+                    trasl = q(i);
+                    self.iTj(3,4,i) = self.iTj(3,4,i) + trasl;
                 end
                     
             end

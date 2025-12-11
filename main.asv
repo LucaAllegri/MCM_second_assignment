@@ -98,7 +98,7 @@ pm.plotFinalConfig(bTi)
 
 %% Q1.5
 km = kinematicModel(geometricModel);
-kinematicModel.getJacobianOfLinkWrtBase(qi)
+
 
 
 %% Q1.6
