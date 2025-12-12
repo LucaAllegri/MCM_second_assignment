@@ -70,7 +70,7 @@ classdef kinematicModel < handle
                 if(self.gm.jointType(j) == 0) %rotational
         
                     w = kl;
-                 
+                    disp(w);
                 
                 else
                     % For prismatic joint
