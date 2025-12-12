@@ -63,8 +63,8 @@ classdef kinematicModel < handle
         % The function update:
         % - J: end-effector jacobian matrix
 
-            for i = 0:self.gm.jointNumber
-                Ji = getJacobianOfLinkWrtBase(i);
+            for i = 1:self.gm.jointNumber
+                Ji = self.getJacobianOfLinkWrtBase(i);
                 self.J(:,i) = Ji;
             end
             

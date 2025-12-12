@@ -104,9 +104,9 @@ disp("J6");
 disp(J6);
 
 %% Q1.6
-J = km.updateJacobian();
+km.updateJacobian();
 disp("J");
-disp(J);
+disp(km.J);
 
 %% Q1.7
 gm = geometricModel(iTj_0,jointType);
