@@ -121,32 +121,35 @@ km.updateJacobian();
 dq = [0.9, 0.1, -0.2, 0.3, -0.8, 0.5, 0]';
 
 V_0 = km.J*dq;
-o_w_e0 = V(1:3);
-o_v_e0 = V(4:6);
-
-
+o_w_e0 = V_0(1:3);
+o_v_e0 = V_0(4:6);
 
 T_0_e = geometricModel.getTransformWrtBase(length(q));
 R_0_e = T_0_e(1:3, 1:3);
 e_w_e0 = R_0_e'*o_w_e0;
+e_v_e0 = R_0_e'*o_v_e0;
 
-disp(e_w_e0);
-
-%Adjoint
-r_0_e = T_0_e(1:3, 4);
-T = skew(r_0_e);
-Adj = zeros(6,6);
-Adj(1:3, 1:3) = R_0_e; 
-Adj(1:3, 4:6) = T * R_0_e; 
-Adj(4:6, 1:3) = zeros(3); 
-Adj(4:6, 4:6) = R_0_e;
-V_e = Adj*V_0;
-e_w_e0 = V_e(1:3);
-e_v_e0 = V_e(4:6);
-
-
-% Display the results
-disp('End-effector linear velocity:');
-disp(e_v_e0);
 disp('End-effector angular velocity :');
 disp(e_w_e0);
+disp('End-effector linear velocity:');
+disp(e_v_e0);
+
+%Adjoint
+% r_0_e = T_0_e(1:3, 4);
+% T = skew(r_0_e);
+% Adj = zeros(6,6);
+% Adj(1:3, 1:3) = R_0_e; 
+% Adj(1:3, 4:6) = T * R_0_e; 
+% Adj(4:6, 1:3) = zeros(3); 
+% Adj(4:6, 4:6) = R_0_e;
+% V_e = Adj*V_0;
+% e_w_e0 = V_e(1:3);
+% e_v_e0 = V_e(4:6);
+% 
+% 
+% % Display the results
+% disp('End-effector angular velocity :');
+% disp(e_w_e0);
+% disp('End-effector linear velocity:');
+% disp(e_v_e0);
+
