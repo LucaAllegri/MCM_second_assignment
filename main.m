@@ -129,10 +129,9 @@ o_v_e0 = V_0(4:6);
 T_0_e = geometricModel.getTransformWrtBase(length(q));
 disp(T_0_e);
 R_0_e = T_0_e(1:3, 1:3);
+r_0_e = T_0_e(1:3, 4);
 e_w_e0 = R_0_e'*o_w_e0;
-e_v_e0 = R_0_e'*o_v_e0;
-
-% manca la traslazione 
+e_v_e0 = R_0_e'*(o_v_e0 - cross(e_w_e0,r_0_e));
 
 disp('End-effector angular velocity :');
 disp(e_w_e0);
