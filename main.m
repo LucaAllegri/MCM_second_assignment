@@ -26,7 +26,7 @@ T_0_6_inv = inv(T_0_6);
 
 first = T_0_6_inv  * T_0_2 ;
 % second = inv(T_0_2_inv * T_0_6 ); secondo metodo 
-disp('first')
+disp('6T2')
 disp(first);
 
 
@@ -131,8 +131,6 @@ r_0_e = T_0_e(1:3, 4);
 r_0_e_skew = skew(r_0_e);
 
 e_w_e0 = R_0_e'*o_w_e0;
-
-
 e_v_e0 = (R_0_e' * r_0_e_skew' * o_w_e0) + (R_0_e' * o_v_e0);
 
 
