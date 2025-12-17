@@ -59,14 +59,17 @@ classdef kinematicModel < handle
         %% Update Jacobian function
         % The function update:
         % - J: end-effector jacobian matrix
-            %Rigid Body Jacobian
-            % B = eye(6,6);
-            % r_e_n = [0, 0, 0];
-            % r_X = skew(r_e_n);
-            % B(4:6, 1:3) = r_X;
+            
             J_n_0 = self.getJacobianOfLinkWrtBase(length(self.gm.jointType));
-          
-            self.J = J_n_0;
+
+            %Rigid Body Jacobian
+            B = eye(6,6);
+            r_e_n = [0, 0, 0];
+            r_X = skew(r_e_n);
+            B(4:6, 1:3) = r_X;
+            self.J = B*J_n_0;
+
+            
             
         end
     end

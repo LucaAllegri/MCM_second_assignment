@@ -39,10 +39,7 @@ classdef geometricModel < handle
                     R = [cos(theta), -sin(theta), 0;
                          sin(theta),  cos(theta), 0;
                                 0,           0,   1];
-                    % self.iTj(1,1,i) = self.iTj(1,1,i) * cos(theta);
-                    % self.iTj(1,2,i) = self.iTj(1,2,i) * -sin(theta);
-                    % self.iTj(2,1,i) = self.iTj(2,1,i) * sin(theta);
-                    % self.iTj(2,2,i) = self.iTj(2,2,i) * cos(theta);
+        
                     self.iTj(:,:,i) = Ti_0 * [R, [0; 0; 0]; 0, 0, 0, 1];
                 end
 
