@@ -120,32 +120,21 @@ km.updateJacobian();
 dq = [0.9, 0.1, -0.2, 0.3, -0.8, 0.5, 0]';
 
 V_0 = km.J*dq;
-disp(km.J);
-disp(V_0);
+
 o_w_e0 = V_0(1:3);
 o_v_e0 = V_0(4:6);
 
 T_0_e = geometricModel.getTransformWrtBase(length(q));
-disp(T_0_e);
+
 R_0_e = T_0_e(1:3, 1:3);
 r_0_e = T_0_e(1:3, 4);
+r_0_e_skew = skew(r_0_e);
 
 e_w_e0 = R_0_e'*o_w_e0;
 
-%Rigid Body Jacobian        
-e_v_e0 = R_0_e'*o_v_e0;
-% -0.3768
-% -0.2656
-% 0.5077
 
+e_v_e0 = (R_0_e' * r_0_e_skew' * o_w_e0) + (R_0_e' * o_v_e0);
 
-% e_v_e0 = R_0_e'*(o_v_e0 - cross(e_w_e0,r_0_e));
-%r_n_e = [0,0,0]';
-
-%e_v_e0 = R_0_e'*(o_v_e0 - cross(e_w_e0,r_n_e));
-% % -0.3768
-% % -0.2656
-% % 0.5077
 
 disp('End-effector angular velocity :');
 disp(e_w_e0);

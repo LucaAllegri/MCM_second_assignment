@@ -62,12 +62,7 @@ classdef kinematicModel < handle
             
             J_n_0 = self.getJacobianOfLinkWrtBase(length(self.gm.jointType));
 
-            %Rigid Body Jacobian
-            B = eye(6,6);
-            r_e_n = [0, 0, 0];
-            r_X = skew(r_e_n);
-            B(4:6, 1:3) = r_X;
-            self.J = B*J_n_0;
+            self.J = J_n_0;
 
             
             
